@@ -1,0 +1,1391 @@
+{
+  "info": {
+    "_postman_id": "0d46bfc2-5759-5eef-b381-9f6829a811f4",
+    "name": "mhs-api-uts-hadiansyah",
+    "description": "Uji API mahasiswa dan jurusan (UTS) oleh Hadiansyah. Jalankan berurutan dari atas ke bawah; lihat UJI.md.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Mahasiswa",
+      "item": [
+        {
+          "name": "GET semua mahasiswa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"berhasil\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET mahasiswa berdasarkan id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"berhasil\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?id=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET cari mahasiswa berdasarkan nama",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"berhasil\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?search=nadia",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "nadia"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST mahasiswa tanpa nim",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"field nama, nim, jurusan_id tidak boleh kosong\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"Citra Maharani\", \"jurusan_id\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST mahasiswa dengan jurusan_id yang tidak ada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"jurusan_id tidak ditemukan\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"Citra Maharani\", \"nim\": \"2511520021\", \"jurusan_id\": 999}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET mahasiswa dengan id yang tidak ada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"mahasiswa tidak ditemukan\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?id=999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "999"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST mahasiswa dengan nim yang sudah terdaftar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 409\", () => pm.response.to.have.status(409));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"nim sudah terdaftar\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"Orang Lain\", \"nim\": \"2511520001\", \"jurusan_id\": 2}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST tambah mahasiswa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"data tersimpan\"));",
+                  "pm.collectionVariables.set(\"mahasiswa_id\", hasil.data.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"  Citra   Maharani \", \"nim\": \"2511520020\", \"jurusan_id\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT ubah mahasiswa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"data berhasil diperbaharui\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?id={{mahasiswa_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{mahasiswa_id}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"Citra Maharani Putri\", \"nim\": \"2511520020\", \"jurusan_id\": 2}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT mahasiswa dengan nim milik mahasiswa lain",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 409\", () => pm.response.to.have.status(409));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"nim sudah terdaftar\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?id=2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"Nadia Kusuma\", \"nim\": \"2511520001\", \"jurusan_id\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT mahasiswa tanpa id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"id wajib diisi pada url\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"Bagas Ramadhan\", \"nim\": \"2511520001\", \"jurusan_id\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT mahasiswa dengan id yang tidak ada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"mahasiswa tidak ditemukan\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?id=999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "999"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"Bagas Ramadhan\", \"nim\": \"2511520001\", \"jurusan_id\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT mahasiswa dengan jurusan_id yang tidak ada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"jurusan_id tidak ditemukan\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?id=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nama\": \"Bagas Ramadhan\", \"nim\": \"2511520001\", \"jurusan_id\": 999}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE mahasiswa tanpa id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"id wajib diisi pada url\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE hapus mahasiswa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"data berhasil dihapus\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?id={{mahasiswa_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{mahasiswa_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE mahasiswa yang sudah terhapus",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"mahasiswa tidak ditemukan\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php?id={{mahasiswa_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{mahasiswa_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH mahasiswa (method tidak didukung)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 405\", () => pm.response.to.have.status(405));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"Method Not Allowed\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa.php"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Jurusan",
+      "item": [
+        {
+          "name": "GET semua jurusan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"berhasil\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET jurusan berdasarkan id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"berhasil\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?id=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET cari jurusan berdasarkan kode",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"berhasil\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?search=SK",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "SK"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST jurusan tanpa fakultas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"field kode_jurusan, nama_jurusan, fakultas tidak boleh kosong\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"kode_jurusan\": \"TS\", \"nama_jurusan\": \"Teknik Sipil\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET jurusan dengan id yang tidak ada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"jurusan tidak ditemukan\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?id=999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "999"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST jurusan dengan kode yang sudah terdaftar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 409\", () => pm.response.to.have.status(409));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"kode_jurusan sudah terdaftar\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"kode_jurusan\": \"if\", \"nama_jurusan\": \"Informatika Terapan\", \"fakultas\": \"Fakultas Teknik\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST tambah jurusan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"data tersimpan\"));",
+                  "pm.collectionVariables.set(\"jurusan_id\", hasil.data.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"kode_jurusan\": \" dk \", \"nama_jurusan\": \"Desain  Komunikasi Visual\", \"fakultas\": \"Fakultas Seni dan Desain\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT ubah jurusan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"data berhasil diperbaharui\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?id={{jurusan_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{jurusan_id}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"kode_jurusan\": \"DK\", \"nama_jurusan\": \"Desain Komunikasi Visual dan Multimedia\", \"fakultas\": \"Fakultas Seni dan Desain\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT jurusan dengan kode milik jurusan lain",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 409\", () => pm.response.to.have.status(409));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"kode_jurusan sudah terdaftar\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?id=3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "3"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"kode_jurusan\": \"SK\", \"nama_jurusan\": \"Teknik Elektro\", \"fakultas\": \"Fakultas Teknik\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT jurusan tanpa id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"id wajib diisi pada url\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"kode_jurusan\": \"IF\", \"nama_jurusan\": \"Informatika\", \"fakultas\": \"Fakultas Ilmu Komputer\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT jurusan dengan id yang tidak ada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"jurusan tidak ditemukan\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?id=999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "999"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"kode_jurusan\": \"DK\", \"nama_jurusan\": \"Desain Komunikasi Visual\", \"fakultas\": \"Fakultas Seni dan Desain\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE jurusan tanpa id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"id wajib diisi pada url\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE jurusan yang masih dipakai mahasiswa dan matakuliah",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 409\", () => pm.response.to.have.status(409));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"jurusan tidak bisa dihapus karena masih dipakai mahasiswa atau matakuliah\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?id=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE hapus jurusan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"data berhasil dihapus\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?id={{jurusan_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{jurusan_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE jurusan yang sudah terhapus",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"jurusan tidak ditemukan\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php?id={{jurusan_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{jurusan_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH jurusan (method tidak didukung)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 405\", () => pm.response.to.have.status(405));",
+                  "const hasil = pm.response.json();",
+                  "pm.test(\"bentuk JSON status/message/data\", () => pm.expect(hasil).to.have.all.keys(\"status\", \"message\", \"data\"));",
+                  "pm.test(\"pesan sesuai\", () => pm.expect(hasil.message).to.eql(\"Method Not Allowed\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jurusan.php",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "jurusan.php"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost/mhs-api-uts-hadiansyah/api"
+    },
+    {
+      "key": "mahasiswa_id",
+      "value": "8"
+    },
+    {
+      "key": "jurusan_id",
+      "value": "6"
+    }
+  ]
+}
